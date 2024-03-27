@@ -17,13 +17,14 @@ const formatChartData=(data , isdark)=>{
                 label:'Likelihood',
                 backgroundColor: isdark ? 'white' : 'black',
                 borderColor: isdark ? 'white' : 'black',
-              
+                borderWidth:1.5,
                 data: values
             },
             {
               label:'Relevance',
               backgroundColor: isdark ? 'green' : 'red',
               borderColor: isdark ? 'green' : 'red',
+              borderWidth:1.5,
               data: relevance
           }
         ]
@@ -42,7 +43,7 @@ const BubbleChart = ({data, isdark}) => {
   const applyFilters = () => {
     let filteredData = data;
 
-    // Apply filters based on selected values
+   
     if (filters.sector !== 'All') {
       filteredData = filteredData.filter(item => item.sector === filters.sector);
     }
