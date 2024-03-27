@@ -1,56 +1,53 @@
-import { Box, Heading, Select } from "@chakra-ui/react";
+import { Box, Flex, Heading, Select } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { Pie, PolarArea, Radar } from "react-chartjs-2";
 
 const formatChartData = (data) => {
-  const labels = data.map((item) => item.source);
-
-  const values = data.map((item) => item.relevance);
-  const backgroundColors = [
-    "rgba(75, 192, 192, 1)",
-    "rgba(255, 99, 132, 1)",
-    "rgba(54, 162, 235, 1)",
-    "rgba(255, 205, 86, 1)",
-    "rgba(153, 102, 255, 1)",
-    "rgba(255, 159, 64, 1)",
-    "rgba(255, 129, 84, 1)",
-    "rgba(215, 169, 64, 1)",
-   
-  ];
+ 
+  const likelihood = data.map((item) => item.start_year);
+  const values = data.map((item) => item.end_year);
+ 
   return {
-    label: labels,
-    datasets: [
-      {
+    labels:[
+        'World',
+        'Nothern America',
+        'Central America',
+        'Eastern America',
+        'Western America',
+        'Southern America',
+        'Nothern Africa',
+        'Central Africa',
+        'Eastern Africa',
+        'Western Africa',
+        
        
-        label: "Relevance",
-        backgroundColor: backgroundColors.slice(0, values.length),
+    ],
+
+    datasets: [
+        {
+            type:"radar",
+            label: "Start Year",
+           
+            borderWidth:0,
+            data: likelihood,
+          },
+      {
+        type:"radar",
+        label: "End Year",
         borderWidth:0,
         data: values,
       },
     ],
   };
 };
-const Piechart = ({ data, isdark }) => {
+const Radarchart = ({ data, isdark }) => {
   const [filter, setFilter] = useState("all");
   const filteredData =
     filter === "All" ? data : data.filter((item) => item.sector === filter);
   const chartdata = formatChartData(filteredData, isdark);
-  const options = {
-    scales: {
-      x: {
-        type: "category",
-        label: chartdata.label,
-      },
-      y: {
-        beginAtZero: true,
-        ticks: {
-          color: isdark ? "#fff" : "black", // Change the color of the x axis ticks
-        }, // Adjust based on your data
-      },
-    },
-  };
+
   return (
-    <Box w={{base:"full",md:"40%"}} >
+    <Box w={{base:"full",md:"40%"}} mx='auto' mt='10px'>
       <Heading as="h3" size={"lg"} mb="10px">
         Relevance Chart
       </Heading>
@@ -68,11 +65,11 @@ const Piechart = ({ data, isdark }) => {
           <option value="Manufacturing">Manufacturing</option>
         </Select>
       </Box>
-      <Box >
-        <Pie data={chartdata} options={options} />
-      </Box>
+      <Flex justifyContent={'center'}>
+        <Radar data={chartdata}  />
+      </Flex>
     </Box>
   );
 };
 
-export default Piechart;
+export default Radarchart;

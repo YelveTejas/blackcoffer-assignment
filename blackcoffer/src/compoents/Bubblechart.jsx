@@ -15,21 +15,21 @@ const formatChartData=(data , isdark)=>{
         datasets:[
             {
                 label:'Likelihood',
-                backgroundColor: isdark ? 'rgba(75, 192, 192, 1)' : 'rgba(75, 192, 192, 0.5)',
-                borderColor: isdark ? 'rgba(75, 192, 192, 1)' : 'rgba(75, 192, 192, 0.5)',
-                
+                backgroundColor: isdark ? 'white' : 'black',
+                borderColor: isdark ? 'white' : 'black',
+              
                 data: values
             },
             {
               label:'Relevance',
-              backgroundColor: isdark ? 'rgba(500, 200, 200, 1)' : 'rgba(500, 200, 200, 0.5)',
-              borderColor: isdark ? 'rgba(75, 200, 192, 1)' : 'rgba(75, 200, 192, 0.5)',
+              backgroundColor: isdark ? 'green' : 'red',
+              borderColor: isdark ? 'green' : 'red',
               data: relevance
           }
         ]
     }
 }
-const Chart = ({data, isdark}) => {
+const BubbleChart = ({data, isdark}) => {
   const [filters, setFilters] = useState({
     sector: 'All',
     country: 'All',
@@ -38,7 +38,7 @@ const Chart = ({data, isdark}) => {
     topics: 'All',
     endYear: 'All',
   });
- // console.log(filters,'filters')
+//  console.log(filters,'filters')
   const applyFilters = () => {
     let filteredData = data;
 
@@ -88,16 +88,16 @@ const Chart = ({data, isdark}) => {
           color: isdark ? '#fff':'black', // Change the color of the x axis ticks
         },// AAdjust based on your data
       },
-    }, 
+    },
   };
 
   const handleFilterChange = (key,value)=>{
   setFilters({...filters,[key]:value})
   }
   return (
-    <Box  p='10px'>
+    <Box  p='10px' >
       <Heading as='h3' size='lg'>Gas Consumption Intensity Chart</Heading>
-      <Flex gap={'5px'} mt='10px'flexDir={{base:"column",md:"row"}} >
+      <Flex gap={'5px'} m='10px' flexDir={{base:"column",md:"row"}}>
            
             <Select  id='filterSelect' value={filters.sector} onChange={(e)=>handleFilterChange('sector',e.target.value)}>
                 <option value='All'>Sector</option>
@@ -107,7 +107,7 @@ const Chart = ({data, isdark}) => {
                 <option value='Information Technology'>Information Technology</option>
                 <option value='Manufacturing'>Manufacturing</option>
             </Select>
-             <Select  value={filters.country} onChange={(e)=>handleFilterChange('country',e.target.value)}>
+             <Select   value={filters.country} onChange={(e)=>handleFilterChange('country',e.target.value)}>
                 <option value='All'>Country</option>
                 <option value='Iraq'>Iraq</option>
                 <option value='Niger'>Niger</option>
@@ -157,8 +157,8 @@ const Chart = ({data, isdark}) => {
                
             </Select>
         </Flex>
-        <Flex h={{base:"250px",md:"500px"}}  justifyContent={'center'} mt='20px'> 
-        <Bar
+        <Flex h={{base:"auto",md:"500px"}}  justifyContent={'center'} mt='20px'> 
+        <Line
           data={chartdata}
          options={options}
       />
@@ -170,4 +170,4 @@ const Chart = ({data, isdark}) => {
   )
 }
 
-export default Chart
+export default BubbleChart

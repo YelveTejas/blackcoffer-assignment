@@ -6,10 +6,27 @@ import { charData } from "./data/data.js";
 import { Box, Flex, IconButton, useColorMode } from "@chakra-ui/react";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import Dotchart from "./compoents/Dotchart.jsx";
+import { useEffect, useState } from "react";
+import axios from 'axios'
+import BubbleChart from "./compoents/Bubblechart.jsx";
+import Radarchart from "./compoents/Radar.jsx";
 
 function App() {
   const { colorMode, toggleColorMode } = useColorMode();
   const isdark = colorMode === "dark";
+  const [data,setData] = useState([])
+
+ useEffect(()=>{
+  axios.get(`https://blackcoffer-assignment-f8no.onrender.com/data/get`)
+  .then((res)=>{
+       setData(res.data)
+       console.log(res.data)
+  }).catch((error)=>{
+    console.log(error)
+  })
+ },[])
+
+
   return (
     <div className="App">
       <Box float={"right"} m="10px 20px">
@@ -19,7 +36,8 @@ function App() {
           onClick={toggleColorMode}
         ></IconButton>
       </Box>
-      <Chart data={charData} isdark={isdark} />
+      <Chart data={data} isdark={isdark} />
+      <BubbleChart  data={data} isdark={isdark}/>
       <Flex
         w={{ base: "95%", md: "80%" }}
         mx="auto"
@@ -29,9 +47,12 @@ function App() {
         mt={{ base: "20px", md: "40px" }}
         flexWrap={"wrap"}
       >
-        <Dotchart data={charData} isdark={isdark} />
-        <Piechart data={charData} isdark={isdark} />
+        <Dotchart data={data} isdark={isdark} />
+        <Piechart data={data} isdark={isdark} />
       </Flex>
+      <Box>
+        <Radarchart data={data} isdark={isdark}/>
+      </Box>
     </div>
   );
 }

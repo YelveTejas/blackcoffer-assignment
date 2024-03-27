@@ -1,6 +1,6 @@
 import { Box, Heading, Select } from '@chakra-ui/react';
 import React, { useState } from 'react'
-import { Bar, Doughnut, Pie, PolarArea } from 'react-chartjs-2';
+import { PolarArea } from 'react-chartjs-2';
 const formatChartData=(data,isdark)=>{
    
     const labels = data.map(item=>item.insight)
@@ -20,7 +20,7 @@ const formatChartData=(data,isdark)=>{
         datasets:[
             {
                 label:'Intensity',
-                
+                borderWidth:0,
                 backgroundColor: backgroundColors.slice(0, values.length),
                 data: values
             }
@@ -65,7 +65,7 @@ const Dotchart = ({data, isdark}) => {
         <Box mb='10px'>
            
             <Select  id='filterSelect' value={filter} onChange={(e)=>setFilter(e.target.value)}>
-                <option value='All'>All</option>
+                <option value='All'>Intensity</option>
                 <option value='Energy'>Energy</option>
                 <option value='Government'>Government</option>
                 <option value='Retail'>Retail</option>
