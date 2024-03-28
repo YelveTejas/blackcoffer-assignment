@@ -1,6 +1,6 @@
-import { Box, Heading, Select } from "@chakra-ui/react";
+import { Box, Flex, Heading, Select } from "@chakra-ui/react";
 import React, { useState } from "react";
-import { Pie, PolarArea, Radar } from "react-chartjs-2";
+import { Doughnut, Pie, PolarArea, Radar } from "react-chartjs-2";
 
 const formatChartData = (data) => {
   const labels = data.map((item) => item.source);
@@ -18,10 +18,25 @@ const formatChartData = (data) => {
    
   ];
   return {
-    label: labels,
+    labels:[
+      "Energy",
+      "Environment",
+      "Government",
+      "Aerospace & defence",
+      "Manufacturing",
+      "Retail",
+      "Financial services",
+      "Support services",
+      "Information Technology",
+      "Healthcare",
+      "Automotive",
+      "Tourism & hospitality",
+      "Food & agriculture",
+      "Construction"
+  ]
+  ,
     datasets: [
       {
-       
         label: "Relevance",
         backgroundColor: backgroundColors.slice(0, values.length),
         borderWidth:0,
@@ -31,23 +46,12 @@ const formatChartData = (data) => {
   };
 };
 const Piechart = ({ data, isdark }) => {
-  const [filter, setFilter] = useState("all");
+  const [filter, setFilter] = useState("All");
   const filteredData =
     filter === "All" ? data : data.filter((item) => item.sector === filter);
   const chartdata = formatChartData(filteredData, isdark);
   const options = {
-    scales: {
-      x: {
-        type: "category",
-        label: chartdata.label,
-      },
-      y: {
-        beginAtZero: true,
-        ticks: {
-          color: isdark ? "#fff" : "black", // Change the color of the x axis ticks
-        }, // Adjust based on your data
-      },
-    },
+   
   };
   return (
     <Box w={{base:"full",md:"40%"}} >
@@ -68,9 +72,9 @@ const Piechart = ({ data, isdark }) => {
           <option value="Manufacturing">Manufacturing</option>
         </Select>
       </Box>
-      <Box >
-        <Pie data={chartdata} options={options} />
-      </Box>
+      <Flex justifyContent={'center'}>
+        <Doughnut data={chartdata} options={options} />
+      </Flex>
     </Box>
   );
 };

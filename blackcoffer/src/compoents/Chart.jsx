@@ -11,19 +11,29 @@ const formatChartData=(data , isdark)=>{
     const relevance =  data.map(item=>item.relevance)
     const values = data.map(item=>item.likelihood)
     return {
-        label:labels,
+        label:[
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2022,
+          2030,
+          2040,
+         
+      ],
         datasets:[
             {
                 label:'Likelihood',
-                backgroundColor: isdark ? 'rgba(75, 192, 192, 1)' : 'rgba(75, 192, 192, 0.5)',
-                borderColor: isdark ? 'rgba(75, 192, 192, 1)' : 'rgba(75, 192, 192, 0.5)',
+                backgroundColor: isdark ? 'rgba(75, 192, 192, 1)' : 'rgba(75, 192, 192, 2)',
+                borderColor: isdark ? 'rgba(75, 192, 192, 1)' : 'rgba(75, 192, 192, 2)',
                 
                 data: values
             },
             {
               label:'Relevance',
-              backgroundColor: isdark ? 'rgba(500, 200, 200, 1)' : 'rgba(500, 200, 200, 0.5)',
-              borderColor: isdark ? 'rgba(75, 200, 192, 1)' : 'rgba(75, 200, 192, 0.5)',
+              backgroundColor: isdark ? 'rgba(500, 200, 200, 1)' : 'rgba(500, 200, 200, 2)',
+              borderColor: isdark ? 'rgba(75, 200, 192, 1)' : 'rgba(75, 200, 192, 2)',
               data: relevance
           }
         ]

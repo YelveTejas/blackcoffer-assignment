@@ -9,19 +9,28 @@ const formatChartData = (data) => {
  
   return {
     labels:[
-        'World',
-        'Nothern America',
-        'Central America',
-        'Eastern America',
-        'Western America',
-        'Southern America',
-        'Nothern Africa',
-        'Central Africa',
-        'Eastern Africa',
-        'Western Africa',
-        
-       
-    ],
+      "Northern America",
+      "Central America",
+      "World",
+      "Western Africa",
+      "Western Asia",
+      "Eastern Europe",
+      "Southern Africa",
+      "Southern Asia",
+      "Central Africa",
+      "Eastern Asia",
+      "South America",
+      "Northern Africa",
+      "Eastern Africa",
+      "Western Europe",
+      "Northern Europe",
+      "Southern Europe",
+      "Western Europe",
+      "Oceania",
+      "Eastern Asia",
+      "Asia"
+  ]
+  ,
 
     datasets: [
         {
@@ -41,7 +50,7 @@ const formatChartData = (data) => {
   };
 };
 const Radarchart = ({ data, isdark }) => {
-  const [filter, setFilter] = useState("all");
+  const [filter, setFilter] = useState("All");
   const filteredData =
     filter === "All" ? data : data.filter((item) => item.sector === filter);
   const chartdata = formatChartData(filteredData, isdark);
